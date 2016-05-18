@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.TruckTour", "06.TruckTou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.BalancedParentheses", "07.BalancedParentheses\07.BalancedParentheses.csproj", "{A3FA3CB3-223A-4015-9915-CA2E8F1ABE4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.RecursiveFibonacci", "08.RecursiveFibonacci\08.RecursiveFibonacci.csproj", "{9CD25313-BF65-4A41-92C4-46E1CD4A89D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{A3FA3CB3-223A-4015-9915-CA2E8F1ABE4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3FA3CB3-223A-4015-9915-CA2E8F1ABE4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3FA3CB3-223A-4015-9915-CA2E8F1ABE4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CD25313-BF65-4A41-92C4-46E1CD4A89D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CD25313-BF65-4A41-92C4-46E1CD4A89D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CD25313-BF65-4A41-92C4-46E1CD4A89D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CD25313-BF65-4A41-92C4-46E1CD4A89D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
