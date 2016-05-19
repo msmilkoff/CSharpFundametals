@@ -4,8 +4,8 @@
     {
         public static void Main(string[] args)
         {
-            string path = @"C:\SoftUni\C# Fundamentals\Advanced C# - May-2016\Labs\StoryMode";
-            IOManager.TraverseDirectory(path);
+            StudentsRepository.InitializeData();
+            StudentsRepository.GetStudentScoresFromCourse("Unity", "Ivan");
         }
     }
 }
