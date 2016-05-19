@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.PhoneBook", "05.PhoneBoo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.MinersTask", "06.MinersTask\06.MinersTask.csproj", "{2578306C-936A-491C-80A3-E1FBA011D4FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.FixEmails", "07.FixEmails\07.FixEmails.csproj", "{D54344DB-9737-421C-B535-357B6D5B5DC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.HandsOfCards", "08.HandsOfCards\08.HandsOfCards.csproj", "{72BE43FC-C855-4CAA-A760-66B8B55CFCBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{2578306C-936A-491C-80A3-E1FBA011D4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2578306C-936A-491C-80A3-E1FBA011D4FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2578306C-936A-491C-80A3-E1FBA011D4FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D54344DB-9737-421C-B535-357B6D5B5DC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D54344DB-9737-421C-B535-357B6D5B5DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D54344DB-9737-421C-B535-357B6D5B5DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D54344DB-9737-421C-B535-357B6D5B5DC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72BE43FC-C855-4CAA-A760-66B8B55CFCBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72BE43FC-C855-4CAA-A760-66B8B55CFCBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72BE43FC-C855-4CAA-A760-66B8B55CFCBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72BE43FC-C855-4CAA-A760-66B8B55CFCBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
