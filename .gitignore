@@ -13,6 +13,9 @@
 # MS Office files
 *.docx
 *.txt
+*.xls
+*.xlsx
+*.doc
 
 # Build results
 [Dd]ebug/
