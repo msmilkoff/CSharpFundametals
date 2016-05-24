@@ -3,111 +3,80 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
+    using System.Text.RegularExpressions;
 
     public class HandsOfCards
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            // TODO: Optimize for maximum result in Judge.
+            var multipliers = new Dictionary<string, int> { { "S", 4 }, { "H", 3 }, { "D", 2 }, { "C", 1 } };
+            var powers = new Dictionary<string, int> { { "J", 11 }, { "Q", 12 }, { "K", 13 }, { "A", 14 } };
+
             var cardsByPlayer = new Dictionary<string, HashSet<string>>();
 
             string input = Console.ReadLine();
             while (input != "JOKER")
             {
-                string[] inputArgs = input.Trim().Split(
-                    new[] { ':', ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] inputArgs = Regex.Replace(input, "\\s+", "")
+                    .Split(new[] { ':', ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                string playerName = inputArgs[0];
-                var handOfCards = new HashSet<string>();
-                for (int i = 1; i < inputArgs.Length; i++)
-                {
-                    handOfCards.Add(inputArgs[i]);
-                }
+                string name = inputArgs[0];
+                string[] cards = inputArgs.Skip(1).ToArray();
 
-                if (!cardsByPlayer.ContainsKey(playerName))
+                if (!cardsByPlayer.ContainsKey(name))
                 {
-                    cardsByPlayer.Add(playerName, handOfCards);
+                    cardsByPlayer.Add(name, new HashSet<string>(cards));
                 }
                 else
                 {
-                    AddHandToPlayer(handOfCards, cardsByPlayer, playerName);
+                    foreach (var card in cards)
+                    {
+                        cardsByPlayer[name].Add(card);
+                    }
                 }
 
                 input = Console.ReadLine();
             }
 
-            foreach (var playerHandPair in cardsByPlayer)
+            var output = new StringBuilder();
+            foreach (var deck in cardsByPlayer)
             {
-                int points = CalculateHand(playerHandPair);
-                Console.WriteLine($"{playerHandPair.Key}: {points}");
+                long points = GetPoints(deck.Value, powers, multipliers);
+
+                output.AppendLine($"{deck.Key}: {points}");
             }
+
+            Console.Write(output.ToString());
         }
 
-        private static int CalculateHand(KeyValuePair<string, HashSet<string>> playerHandPair)
+        private static long GetPoints(
+            HashSet<string> cards,
+            Dictionary<string, int> powers,
+            Dictionary<string, int> multipliers)
         {
-            int points = 0;
-
-            foreach (var card in playerHandPair.Value)
+            long points = 0;
+            foreach (var card in cards)
             {
-                int power, multiplier = 0;
-
+                int power;
                 if (card.Length == 3)
                 {
                     power = 10;
                 }
                 else
                 {
-                    switch (card[0])
+                    bool canGetPower = powers.TryGetValue(card[0].ToString(), out power);
+                    if (!canGetPower)
                     {
-                        case 'J':
-                            power = 11;
-                            break;
-                        case 'Q':
-                            power = 12;
-                            break;
-                        case 'K':
-                            power = 13;
-                            break;
-                        case 'A':
-                            power = 14;
-                            break;
-                        default:
-                            power = int.Parse(card[0].ToString());
-                            break;
+                        power = int.Parse(card.Substring(0, 1));
                     }
                 }
-
-                switch (card.Last())
-                {
-                    case 'S':
-                        multiplier = 4;
-                        break;
-                    case 'H':
-                        multiplier = 3;
-                        break;
-                    case 'D':
-                        multiplier = 2;
-                        break;
-                    case 'C':
-                        multiplier = 1;
-                        break;
-                }
-
-                points += power * multiplier;
+                
+                string suite = card[card.Length - 1].ToString();
+                points += power * multipliers[suite];
             }
 
             return points;
-        }
-
-        private static void AddHandToPlayer(HashSet<string> handOfCards, Dictionary<string, HashSet<string>> cardsByPlayer, string playerName)
-        {
-            foreach (var hand in handOfCards)
-            {
-                if (!cardsByPlayer[playerName].Contains(hand))
-                {
-                    cardsByPlayer[playerName].Add(hand);
-                }
-            }
         }
     }
 }
