@@ -8,7 +8,7 @@
     {
         static void Main(string[] args)
         {
-            var operationResults = new Stack<StringBuilder>();
+            var operationResults = new Stack<string>();
 
             int operationsCount = int.Parse(Console.ReadLine());
             for (int i = 0; i < operationsCount; i++)
@@ -20,17 +20,17 @@
                 {
                     case "1":
                         var editedText = operationResults.Count > 0 
-                            ? new StringBuilder(operationResults.Peek().ToString()) 
+                            ? new StringBuilder(operationResults.Peek()) 
                             : new StringBuilder();
                         editedText.Append(commandArgs[1]);
-                        operationResults.Push(editedText);
+                        operationResults.Push(editedText.ToString());
                         break;
                     case "2":
                         var curretTextState = operationResults.Peek();
-                        var newTextState = new StringBuilder(curretTextState.ToString());
+                        var newTextState = new StringBuilder(curretTextState);
                         int startIndex = curretTextState.Length - int.Parse(commandArgs[1]);
                         newTextState.Remove(startIndex, curretTextState.Length - startIndex);
-                        operationResults.Push(newTextState);
+                        operationResults.Push(newTextState.ToString());
                         break;
                     case "3":
                         var currentTextState = operationResults.Peek();
