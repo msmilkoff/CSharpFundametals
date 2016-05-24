@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.HandsOfCards", "08.Hands
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09.UserLogs", "09.UserLogs\09.UserLogs.csproj", "{067ABEC6-BA1D-433E-9441-27C00C08EEA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10.PopulationCounter", "10.PopulationCounter\10.PopulationCounter.csproj", "{A5C2F10A-52C8-48AA-9B9D-1E0A173FC38F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{067ABEC6-BA1D-433E-9441-27C00C08EEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{067ABEC6-BA1D-433E-9441-27C00C08EEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{067ABEC6-BA1D-433E-9441-27C00C08EEA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5C2F10A-52C8-48AA-9B9D-1E0A173FC38F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5C2F10A-52C8-48AA-9B9D-1E0A173FC38F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5C2F10A-52C8-48AA-9B9D-1E0A173FC38F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5C2F10A-52C8-48AA-9B9D-1E0A173FC38F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
