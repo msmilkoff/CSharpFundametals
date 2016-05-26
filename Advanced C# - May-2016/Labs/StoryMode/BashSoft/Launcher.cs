@@ -4,8 +4,6 @@
     {
         public static void Main(string[] args)
         {
-            IOManager.CreateDirectoryInCurretFolder("pesho");
-            IOManager.TraverseDirectory(0);
         }
     }
 }

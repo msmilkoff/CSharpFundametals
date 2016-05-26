@@ -50,7 +50,7 @@
                 string actualLine = actualOutput[i];
                 string expectedLine = expectedOutput[i];
 
-                if (actualLine.Equals(expectedLine))
+                if (!actualLine.Equals(expectedLine))
                 {
                     output = string.Format("Mismatch at line {0} -- expected \"{1}\", actual: \" {2}\"",
                         i, expectedLine, actualLine);
