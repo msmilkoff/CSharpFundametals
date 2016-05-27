@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _03.FormattingNumbers
+﻿namespace _03.FormattingNumbers
 {
-    class Program
+    using System;
+
+    public class FormattingNumbers
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+
         }
     }
 }
