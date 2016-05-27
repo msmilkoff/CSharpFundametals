@@ -27,17 +27,24 @@
                 var ident = new string('-', identation);
                 OutputWriter.WriteMessageOnNewLine($"{ident}{currentPath}");
 
-                foreach (var file in Directory.GetFiles(currentPath))
+                try
                 {
-                    int indexOfLastSlash = file.LastIndexOf('\\');
-                    string fileName = file.Substring(indexOfLastSlash);
-                    OutputWriter.WriteMessageOnNewLine(new string('-', indexOfLastSlash) + fileName);
-                }
+                    foreach (var file in Directory.GetFiles(currentPath))
+                    {
+                        int indexOfLastSlash = file.LastIndexOf('\\');
+                        string fileName = file.Substring(indexOfLastSlash);
+                        OutputWriter.WriteMessageOnNewLine(new string('-', indexOfLastSlash) + fileName);
+                    }
 
-                var directories = Directory.GetDirectories(currentPath);
-                foreach (var directoryPath in directories)
+                    var directories = Directory.GetDirectories(currentPath);
+                    foreach (var directoryPath in directories)
+                    {
+                        subFolders.Enqueue(directoryPath);
+                    }
+                }
+                catch (UnauthorizedAccessException)
                 {
-                    subFolders.Enqueue(directoryPath);
+                    OutputWriter.DisplayException(ExceptionMessages.UnauthorizedAccessExceptionMessage);
                 }
             }
         }
@@ -45,18 +52,32 @@
         public static void CreateDirectoryInCurretFolder(string name)
         {
             string path = Directory.GetCurrentDirectory() + "\\" + name;
-            Directory.CreateDirectory(path);
+            try
+            {
+                Directory.CreateDirectory(path);
+            }
+            catch (ArgumentException)
+            {
+                OutputWriter.DisplayException(ExceptionMessages.ForbiddenSymbolsContainedInName);
+            }
         }
 
         public static void ChangeCurrentDirectoryRelative(string relativePath)
         {
             if (relativePath == "..")
             {
-                string currentPath = SessionData.currentPath;
-                currentPath += "\\" + relativePath;
-                int indexOfLastSlash = currentPath.LastIndexOf('\\');
-                string newPath = currentPath.Substring(0, indexOfLastSlash);
-                SessionData.currentPath = newPath;
+                try
+                {
+                    string currentPath = SessionData.currentPath;
+                    currentPath += "\\" + relativePath;
+                    int indexOfLastSlash = currentPath.LastIndexOf('\\');
+                    string newPath = currentPath.Substring(0, indexOfLastSlash);
+                    SessionData.currentPath = newPath;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    OutputWriter.DisplayException("Unable to go higher in partition hierarchy.");
+                }
             }
             else
             {
@@ -66,7 +87,7 @@
             }
         }
 
-        private static void ChangeCurentDirectoryAbsolute(string absolutePath)
+        public static void ChangeCurentDirectoryAbsolute(string absolutePath)
         {
             if (Directory.Exists(absolutePath))
             {
