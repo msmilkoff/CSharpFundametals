@@ -15,7 +15,7 @@
                 { "motes", 0 }
             };
 
-            bool legendayCollected = false;
+            bool legendaryCollected = false;
 
             string input = Console.ReadLine().ToLower();
             while (!string.IsNullOrWhiteSpace(input))
@@ -34,26 +34,26 @@
                     {
                         Console.WriteLine("Shadowmourne obtained!");
                         materials["shards"] -= 250;
-                        legendayCollected = true;
+                        legendaryCollected = true;
                         break;
                     }
                     else if (materials["fragments"] >= 250)
                     {
                         Console.WriteLine("Valanyr obtained!");
                         materials["fragments"] -= 250;
-                        legendayCollected = true;
+                        legendaryCollected = true;
                         break;
                     }
                     else if (materials["motes"] >= 250)
                     {
                         Console.WriteLine("Dragonwrath obtained!");
                         materials["motes"] -= 250;
-                        legendayCollected = true;
+                        legendaryCollected = true;
                         break;
                     }
                 }
 
-                if (legendayCollected)
+                if (legendaryCollected)
                 {
                     break;
                 }
