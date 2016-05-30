@@ -69,7 +69,6 @@
                 try
                 {
                     string currentPath = SessionData.currentPath;
-                    currentPath += "\\" + relativePath;
                     int indexOfLastSlash = currentPath.LastIndexOf('\\');
                     string newPath = currentPath.Substring(0, indexOfLastSlash);
                     SessionData.currentPath = newPath;
@@ -89,7 +88,7 @@
 
         public static void ChangeCurentDirectoryAbsolute(string absolutePath)
         {
-            if (Directory.Exists(absolutePath))
+            if (!Directory.Exists(absolutePath))
             {
                 OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
             }
