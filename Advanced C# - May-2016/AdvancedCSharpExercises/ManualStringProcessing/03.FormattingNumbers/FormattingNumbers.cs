@@ -22,7 +22,7 @@
 
             Console.WriteLine(result);
 
-            // TODO: fix bugs. FUCK !!!!!!!!
+            // TODO: fix bugs.
         }
     }
 }
