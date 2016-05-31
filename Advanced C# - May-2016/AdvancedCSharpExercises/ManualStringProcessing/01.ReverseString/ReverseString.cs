@@ -7,13 +7,16 @@
         public static void Main(string[] args)
         {
             string input = Console.ReadLine();
-            
-            for (int i = input.Length - 1; i >= 0; i--)
-            {
-                Console.Write(input[i]);
-            }
 
-            Console.WriteLine();
+            Console.WriteLine(Reverse(input));
+        }
+
+        public static string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+
+            return new string(charArray);
         }
     }
 }
