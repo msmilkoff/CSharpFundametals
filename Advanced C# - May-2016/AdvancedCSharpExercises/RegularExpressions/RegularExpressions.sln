@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.MatchPhoneNumber", "02.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.SeriesOfNumbers", "03.SeriesOfNumbers\03.SeriesOfNumbers.csproj", "{B06BA89B-C3EF-4667-B36C-652291EC1203}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.ReplaceTag", "04.ReplaceTag\04.ReplaceTag.csproj", "{784599EF-FA36-48CB-9B2E-C0B196EA4A69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B06BA89B-C3EF-4667-B36C-652291EC1203}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B06BA89B-C3EF-4667-B36C-652291EC1203}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B06BA89B-C3EF-4667-B36C-652291EC1203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{784599EF-FA36-48CB-9B2E-C0B196EA4A69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{784599EF-FA36-48CB-9B2E-C0B196EA4A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{784599EF-FA36-48CB-9B2E-C0B196EA4A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{784599EF-FA36-48CB-9B2E-C0B196EA4A69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
