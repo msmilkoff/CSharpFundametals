@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.SentenceExtractor", "06.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.ValidUsernames", "07.ValidUsernames\07.ValidUsernames.csproj", "{7AB09A52-1337-4F05-8F7D-F2F8D610D5C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.ExtractHyperlinks", "08.ExtractHyperlinks\08.ExtractHyperlinks.csproj", "{9502C843-7243-443B-A211-3DB6F2083A7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{7AB09A52-1337-4F05-8F7D-F2F8D610D5C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AB09A52-1337-4F05-8F7D-F2F8D610D5C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AB09A52-1337-4F05-8F7D-F2F8D610D5C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9502C843-7243-443B-A211-3DB6F2083A7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9502C843-7243-443B-A211-3DB6F2083A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9502C843-7243-443B-A211-3DB6F2083A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9502C843-7243-443B-A211-3DB6F2083A7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
