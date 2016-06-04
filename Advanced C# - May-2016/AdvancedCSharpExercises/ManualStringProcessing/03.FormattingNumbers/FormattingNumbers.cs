@@ -7,22 +7,23 @@
         public static void Main(string[] args)
         {
             string input = Console.ReadLine();
-
-            string[] inputArgs = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] inputArgs = input.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
             int a = int.Parse(inputArgs[0]);
             double b = double.Parse(inputArgs[1]);
             double c = double.Parse(inputArgs[2]);
 
-            string result = string.Format("|{0, -10}|{1, 10}|{2, 10:F2}|{3, -10:F3}|",
-                a.ToString("X"),
-                Convert.ToString(a, 2).PadLeft(10, '0'),
-                b,
-                c);
+            string aHex = a.ToString("X").PadRight(10);
+            string aBin = Convert.ToString(a, 2).PadLeft(10, '0');
+            if (aBin.Length > 10)
+            {
+                aBin = aBin.Substring(0, 10);
+            }
 
-            Console.WriteLine(result);
+            string bRounded = b.ToString("0.00");
+            string cRounded = c.ToString("0.000");
 
-            // TODO: fix bugs.
+            Console.WriteLine("|{0}|{1}|{2, 10}|{3, -10}|", aHex, aBin, bRounded, cRounded);
         }
     }
 }
