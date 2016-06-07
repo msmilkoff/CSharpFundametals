@@ -25,5 +25,10 @@
         public const string InvalidCommand = "The command {0} is not valid.";
 
         public const string UnableToParseNumber = "The sequence you've written is not a valid number";
+
+        public const string InvalidStudentFilter = "The give filter is not one of the following: excellent/average/poor";
+
+        public const string InvalidComparisonQuery =
+            "The comparison query you want, does not exist in the context of the current program!";
     }
 }

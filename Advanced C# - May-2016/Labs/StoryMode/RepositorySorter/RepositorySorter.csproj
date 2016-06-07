@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C7746792-AA5C-4F94-BB09-7C52E552A600}</ProjectGuid>
+    <ProjectGuid>{047940F5-6669-4671-9DF6-5844AD7727BF}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BashSoft</RootNamespace>
-    <AssemblyName>BashSoft</AssemblyName>
+    <RootNamespace>RepositorySorter</RootNamespace>
+    <AssemblyName>RepositorySorter</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,18 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandInterpreter.cs" />
-    <Compile Include="InputReader.cs" />
-    <Compile Include="RepositoryFilter.cs" />
-    <Compile Include="RepositorySorter.cs" />
-    <Compile Include="SessionData.cs" />
-    <Compile Include="StudentsRepository.cs" />
-    <Compile Include="ExceptionMessages.cs" />
-    <Compile Include="IOManager.cs" />
-    <Compile Include="Launcher.cs" />
-    <Compile Include="OutputWriter.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
