@@ -7,11 +7,16 @@
     {
         public static void Main(string[] args)
         {
-            var input = Console.ReadLine()
+            var names = Console.ReadLine()
                 .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
                 .ToList();
 
-           // Action<List<string> prefixPrint = names => Console.WriteLine("Sir " + names);
+            Action<string> prefixPrint = name => Console.WriteLine("Sir " + name);
+
+            foreach (var name in names)
+            {
+                prefixPrint(name);
+            }
         }
     }
 }
