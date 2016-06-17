@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="IO\CommandInterpreter.cs" />
     <Compile Include="IO\InputReader.cs" />
+    <Compile Include="Network\DownloadManager.cs" />
     <Compile Include="Repository\RepositoryFilter.cs" />
     <Compile Include="Repository\RepositorySorter.cs" />
     <Compile Include="Static Data\SessionData.cs" />

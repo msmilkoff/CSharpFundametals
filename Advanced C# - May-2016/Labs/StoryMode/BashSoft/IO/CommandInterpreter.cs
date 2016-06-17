@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
     using Judge;
+    using Network;
     using Repository;
     using Static_Data;
 
@@ -50,14 +51,40 @@
                     // TODO:
                     break;
                 case "download":
-                    // TODO:
+                    TryDownloadFile(input, data);
                     break;
                 case "downloadAsynch":
-                    // TODO:
+                    TryDownloadFileAsync(input, data);
                     break;
                 default:
                     DisplayInvalidCommanndMessage(command);
                     break;
+            }
+        }
+
+        private static void TryDownloadFileAsync(string input, string[] data)
+        {
+            if (data.Length == 2)
+            {
+                string url = data[1];
+                DownloadManager.DownloadAsync(url);
+            }
+            else
+            {
+                DisplayInvalidCommanndMessage(input);
+            }
+        }
+
+        private static void TryDownloadFile(string input, string[] data)
+        {
+            if (data.Length == 2)
+            {
+                string url = data[1];
+                DownloadManager.Download(url);
+            }
+            else
+            {
+                DisplayInvalidCommanndMessage(input);
             }
         }
 
