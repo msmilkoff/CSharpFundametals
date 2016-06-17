@@ -1,7 +1,9 @@
-﻿namespace BashSoft
+﻿namespace BashSoft.Judge
 {
-    using System.IO;
     using System;
+    using System.IO;
+    using IO;
+    using Static_Data;
 
     public static class Tester
     {

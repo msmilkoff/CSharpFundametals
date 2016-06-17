@@ -1,8 +1,9 @@
-﻿namespace BashSoft
+﻿namespace BashSoft.IO
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
-    using System;
+    using Static_Data;
 
     public static class IOManager
     {

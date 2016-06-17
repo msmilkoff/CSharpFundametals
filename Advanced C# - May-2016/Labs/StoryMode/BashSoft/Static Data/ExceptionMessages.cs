@@ -1,4 +1,4 @@
-﻿namespace BashSoft
+﻿namespace BashSoft.Static_Data
 {
     public static class ExceptionMessages
     {

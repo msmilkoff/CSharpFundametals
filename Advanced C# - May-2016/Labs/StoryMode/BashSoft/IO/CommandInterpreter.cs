@@ -1,7 +1,9 @@
-﻿namespace BashSoft
+﻿namespace BashSoft.IO
 {
-    using System;
     using System.Diagnostics;
+    using Judge;
+    using Repository;
+    using Static_Data;
 
     public static class CommandInterpreter
     {

@@ -1,8 +1,10 @@
-﻿namespace BashSoft
+﻿namespace BashSoft.Repository
 {
-    using System.IO;
     using System.Collections.Generic;
+    using System.IO;
     using System.Text.RegularExpressions;
+    using IO;
+    using Static_Data;
 
     public static class StudentsRepository
     {
