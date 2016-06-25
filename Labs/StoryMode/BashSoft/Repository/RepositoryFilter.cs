@@ -6,9 +6,9 @@
     using IO;
     using Static_Data;
 
-    public static class RepositoryFilter
+    public class RepositoryFilter
     {
-        public static void FilterAndTake(
+        public void FilterAndTake(
             Dictionary<string, List<int>> wantedData,
             string wantedFilter,
             int studentsToTake)
@@ -30,7 +30,7 @@
             }
         }
 
-        private static void FilterAndTake(
+        private void FilterAndTake(
             Dictionary<string, List<int>> wantedData,
             Predicate<double> givenFilter,
             int studentsToTake)

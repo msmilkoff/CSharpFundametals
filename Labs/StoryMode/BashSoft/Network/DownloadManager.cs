@@ -5,9 +5,16 @@
     using IO;
     using Static_Data;
 
-    public static class DownloadManager
+    public class DownloadManager
     {
-        public static void Download(string fileUrl)
+        private WebClient webClient;
+
+        public DownloadManager()
+        {
+            this.webClient = new WebClient();
+        }
+
+        public void Download(string fileUrl)
         {
             var webClient = new WebClient();
 
@@ -28,12 +35,12 @@
             }
         }
 
-        public static void DownloadAsync(string fileUrl)
+        public void DownloadAsync(string fileUrl)
         {
             Task.Run(() => Download(fileUrl));
         }
 
-        private static string ExtractNameOfFile(string fileUrl)
+        private string ExtractNameOfFile(string fileUrl)
         {
             int indexOfLastSlash = fileUrl.LastIndexOf('/');
             if (indexOfLastSlash != -1)

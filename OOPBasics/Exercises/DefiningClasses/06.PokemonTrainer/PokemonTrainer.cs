@@ -32,6 +32,7 @@
                 trainers[trainerName].Pokemon.Add(
                     new Pokemon(pokemonName, pokemonElement, pokemonHealth));
             }
+            
             string command = Console.ReadLine().Trim();
             while (command != "End")
             {

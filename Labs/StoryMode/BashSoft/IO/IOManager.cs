@@ -5,9 +5,9 @@
     using System.IO;
     using Static_Data;
 
-    public static class IOManager
+    public class IOManager
     {
-        public static void TraverseDirectory(int depth)
+        public void TraverseDirectory(int depth)
         {
             OutputWriter.WriteEmptyLine();
             int initialIdentation = SessionData.currentPath.Split('\\').Length;
@@ -49,7 +49,7 @@
             }
         }
 
-        public static void CreateDirectoryInCurretFolder(string name)
+        public void CreateDirectoryInCurretFolder(string name)
         {
             string path = Directory.GetCurrentDirectory() + "\\" + name;
             try
@@ -62,7 +62,7 @@
             }
         }
 
-        public static void ChangeCurrentDirectoryRelative(string relativePath)
+        public void ChangeCurrentDirectoryRelative(string relativePath)
         {
             if (relativePath == "..")
             {
@@ -86,7 +86,7 @@
             }
         }
 
-        public static void ChangeCurentDirectoryAbsolute(string absolutePath)
+        public void ChangeCurentDirectoryAbsolute(string absolutePath)
         {
             if (!Directory.Exists(absolutePath))
             {

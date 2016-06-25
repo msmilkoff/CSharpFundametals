@@ -3,11 +3,17 @@
     using System;
     using Static_Data;
 
-    public static class InputReader
+    public class InputReader
     {
         private const string EndCommand = "quit";
+        private CommandInterpreter interpreter;
 
-        public static void StartReadingCommands()
+        public InputReader(CommandInterpreter interpreter)
+        {
+            this.interpreter = interpreter;
+        }
+
+        public void StartReadingCommands()
         {
             while (true)
             {
@@ -16,7 +22,7 @@
                 string input = Console.ReadLine();
                 input = input.Trim();
 
-                CommandInterpreter.InterpretCommand(input);
+                this.interpreter.InterpretCommand(input);
 
                 if (input == EndCommand)
                 {

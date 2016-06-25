@@ -5,9 +5,9 @@
     using IO;
     using Static_Data;
 
-    public static class Tester
+    public class Tester
     {
-        public static void CompareContent(string userOutputPath, string expectedOutputPath)
+        public void CompareContent(string userOutputPath, string expectedOutputPath)
         {
             OutputWriter.WriteMessageOnNewLine("Reading files...");
 
@@ -30,7 +30,7 @@
             }
         }
 
-        private static void PrintOutput(string[] mismatches, bool hasMismatch, string mismatchPath)
+        private void PrintOutput(string[] mismatches, bool hasMismatch, string mismatchPath)
         {
             if (hasMismatch)
             {
@@ -54,7 +54,7 @@
             OutputWriter.WriteMessageOnNewLine("Files are identical. There are no mismatches.");
         }
 
-        private static string[] GetLinesWithPossibleMismatches(
+        private string[] GetLinesWithPossibleMismatches(
             string[] actualOutput,
             string[] expectedOutput,
             out bool hasMismatch)
@@ -97,7 +97,7 @@
             return mismatches;
         }
 
-        public static string GetMismatchPath(string expectedOutputPath)
+        public string GetMismatchPath(string expectedOutputPath)
         {
             int indexOf = expectedOutputPath.IndexOf('\\');
             string directoryPath = expectedOutputPath.Substring(0, indexOf);

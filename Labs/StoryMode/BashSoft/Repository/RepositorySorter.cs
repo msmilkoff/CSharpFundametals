@@ -5,9 +5,9 @@
     using IO;
     using Static_Data;
 
-    public static class RepositorySorter
+    public class RepositorySorter
     {
-        public static void OrderAndTake(
+        public void OrderAndTake(
             Dictionary<string, List<int>> wantedData,
             string comparison,
             int studentToTake)
@@ -33,7 +33,7 @@
             }
         }
 
-        private static void PrintStudents(Dictionary<string, List<int>> wantedData)
+        private void PrintStudents(Dictionary<string, List<int>> wantedData)
         {
             foreach (var student in wantedData)
             {
