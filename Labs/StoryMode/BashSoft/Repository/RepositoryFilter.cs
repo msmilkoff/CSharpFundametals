@@ -2,53 +2,48 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using IO;
     using Static_Data;
 
     public class RepositoryFilter
     {
         public void FilterAndTake(
-            Dictionary<string, List<int>> wantedData,
+            Dictionary<string, double> studentsWithMarks,
             string wantedFilter,
             int studentsToTake)
         {
             switch (wantedFilter)
             {
                 case "excellent":
-                    FilterAndTake(wantedData, x => x >= 5, studentsToTake);
+                    this.FilterAndTake(studentsWithMarks, x => x >= 5, studentsToTake);
                     break;
                 case "average":
-                    FilterAndTake(wantedData, x => x < 5 && x >= 3.5, studentsToTake);
+                    this.FilterAndTake(studentsWithMarks, x => x < 5 && x >= 3.5, studentsToTake);
                     break;
                 case "poor":
-                    FilterAndTake(wantedData, x => x < 3.5, studentsToTake);
+                    this.FilterAndTake(studentsWithMarks, x => x < 3.5, studentsToTake);
                     break;
                 default:
-                    OutputWriter.DisplayException(ExceptionMessages.InvalidStudentFilter);
-                    break;
+                    throw new ArgumentException(ExceptionMessages.InvalidStudentFilter);
             }
         }
 
         private void FilterAndTake(
-            Dictionary<string, List<int>> wantedData,
+            Dictionary<string, double> studentsWithMarks,
             Predicate<double> givenFilter,
             int studentsToTake)
         {
             int printedStudents = 0;
-            foreach (var studentScore in wantedData)
+            foreach (var studentScore in studentsWithMarks)
             {
                 if (printedStudents == studentsToTake)
                 {
                     break;
                 }
 
-                double averageScore = studentScore.Value.Average();
-                double percentageOfFulfillment = averageScore / 100;
-                double mark = percentageOfFulfillment * 4 + 2;
-                if (givenFilter(mark))
+                if (givenFilter(studentScore.Value))
                 {
-                    OutputWriter.DisplayStudent(studentScore);
+                    OutputWriter.DisplayStudent(new KeyValuePair<string, double>(studentScore.Key, studentScore.Value));
                     printedStudents++;
                 }
             }

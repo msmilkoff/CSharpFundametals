@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using Exceptions;
     using IO;
     using Static_Data;
 
@@ -13,20 +14,20 @@
 
             try
             {
-                string mismatchPath = GetMismatchPath(expectedOutputPath);
+                string mismatchPath = this.GetMismatchPath(expectedOutputPath);
 
                 string[] actualOutput = File.ReadAllLines(userOutputPath);
                 string[] expectedOutput = File.ReadAllLines(expectedOutputPath);
 
                 bool hasMismatch;
-                string[] mismatches = GetLinesWithPossibleMismatches(actualOutput, expectedOutput, out hasMismatch);
+                string[] mismatches = this.GetLinesWithPossibleMismatches(actualOutput, expectedOutput, out hasMismatch);
 
-                PrintOutput(mismatches, hasMismatch, mismatchPath);
+                this.PrintOutput(mismatches, hasMismatch, mismatchPath);
                 OutputWriter.WriteMessageOnNewLine("Files read!");
             }
-            catch (FileNotFoundException)
+            catch (IOException)
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+                throw new IOException(InvalidPathException.InvalidPath);
             }
         }
 
@@ -39,15 +40,7 @@
                     OutputWriter.WriteMessageOnNewLine(line);
                 }
 
-                try
-                {
-                    File.WriteAllLines(mismatchPath, mismatches);
-                }
-                catch (DirectoryNotFoundException)
-                {
-                    OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-                }
-
+                File.WriteAllLines(mismatchPath, mismatches);
                 return;
             }
 
@@ -60,7 +53,6 @@
             out bool hasMismatch)
         {
             hasMismatch = false;
-            string output = string.Empty;
 
             string[] mismatches = new string[actualOutput.Length];
             OutputWriter.WriteMessageOnNewLine("Comparing files...");
@@ -77,6 +69,7 @@
                 string actualLine = actualOutput[i];
                 string expectedLine = expectedOutput[i];
 
+                string output;
                 if (!actualLine.Equals(expectedLine))
                 {
                     output = string.Format("Mismatch at line {0} -- expected \"{1}\", actual: \" {2}\"",

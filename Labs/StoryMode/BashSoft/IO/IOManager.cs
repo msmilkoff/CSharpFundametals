@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using Exceptions;
     using Static_Data;
 
     public class IOManager
@@ -58,7 +59,7 @@
             }
             catch (ArgumentException)
             {
-                OutputWriter.DisplayException(ExceptionMessages.ForbiddenSymbolsContainedInName);
+                throw new InvalidFileNameException(ExceptionMessages.ForbiddenSymbolsContainedInName);
             }
         }
 
@@ -75,14 +76,14 @@
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    OutputWriter.DisplayException("Unable to go higher in partition hierarchy.");
+                    throw new InvalidPathException(InvalidPathException.InvalidPath);
                 }
             }
             else
             {
                 string currentPath = SessionData.currentPath;
                 currentPath += "\\" + relativePath;
-                ChangeCurentDirectoryAbsolute(currentPath);
+                this.ChangeCurentDirectoryAbsolute(currentPath);
             }
         }
 
@@ -90,7 +91,7 @@
         {
             if (!Directory.Exists(absolutePath))
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+                throw new InvalidPathException(InvalidPathException.InvalidPath);
             }
 
             SessionData.currentPath = absolutePath;

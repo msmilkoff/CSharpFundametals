@@ -29,9 +29,9 @@
             Console.ForegroundColor = currentColor;
         }
         
-        public static void DisplayStudent(KeyValuePair<string, List<int>> student)
+        public static void DisplayStudent(KeyValuePair<string, double> student)
         {
-            WriteMessageOnNewLine(string.Format($"{student.Key} - {string.Join(", ", student.Value)}"));
+            WriteMessageOnNewLine(string.Format($"{student.Key} - {student.Value}"));
         }
     }
 }

@@ -13,14 +13,8 @@
         public const string InexistingStudentInDataBase =
             "The user name for the student you are trying to get does not exist!";
 
-        public const string InvalidPath =
-            "The folder/file you are trying to access at the current address, does not exist.";
-
         public const string UnauthorizedAccessExceptionMessage =
             "The folder/file you are trying to get access needs a higher level of rights than you currently have.";
-
-        public const string ForbiddenSymbolsContainedInName =
-            "The given name contains symbols that are not allowed to be used in names of files and folders.";
 
         public const string InvalidCommand = "The command {0} is not valid.";
 
@@ -34,5 +28,15 @@
         public const string InvalidTakeCommand = "The take command expected does not match the format wanted!";
 
         public const string InvalidTakeQuantityParameter = "The quantity parameter is not valid.";
+
+        public const string NotEnrolledInCourse = "Student must be enrolled in a course before you set his mark.";
+
+        public const string InvalidNumberOfScores =
+            "The number of scores for the given course is greater than the possible.";
+
+        public const string InvalidScore = "The number for the score you've entered is not in the range of 0 - 100";
+
+        public const string ForbiddenSymbolsContainedInName =
+            "The given name contains symbols that are not allowed to be used in names of files and folders.";
     }
 }

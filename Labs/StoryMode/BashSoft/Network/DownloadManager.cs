@@ -2,6 +2,7 @@
 {
     using System.Net;
     using System.Threading.Tasks;
+    using Exceptions;
     using IO;
     using Static_Data;
 
@@ -49,7 +50,7 @@
             }
             else
             {
-                throw new WebException(ExceptionMessages.InvalidPath);
+                throw new WebException(InvalidPathException.InvalidPath);
             }
         }
     }

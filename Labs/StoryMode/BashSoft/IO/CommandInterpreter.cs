@@ -2,10 +2,12 @@
 {
     using System;
     using System.Diagnostics;
+    using System.IO;
     using Judge;
     using Network;
     using Repository;
     using Static_Data;
+
     public class CommandInterpreter
     {
         private Tester judge;
@@ -29,6 +31,32 @@
         {
             string[] data = input.Split();
             string command = data[0];
+            command = command.ToLower();
+
+            try
+            {
+                this.ParseCommand(input, command, data);
+            }
+            catch (DirectoryNotFoundException dnfex)
+            {
+                OutputWriter.DisplayException(dnfex.Message);
+            }
+            catch (ArgumentOutOfRangeException aoorex)
+            {
+                OutputWriter.DisplayException(aoorex.Message);
+            }
+            catch (ArgumentException aex)
+            {
+                OutputWriter.DisplayException(aex.Message);
+            }
+            catch (Exception ex)
+            {
+                OutputWriter.DisplayException(ex.Message);
+            }
+        }
+
+        private void ParseCommand(string input, string command, string[] data)
+        {
             switch (command)
             {
                 case "open":
@@ -43,13 +71,13 @@
                 case "cmp":
                     this.TryCompareFiles(data);
                     break;
-                case "cdRel":
+                case "cdrel":
                     this.TryChangePathRelatively(data);
                     break;
-                case "cdAbs":
+                case "cdabs":
                     this.TryChangePathAbsolute(data);
                     break;
-                case "readDb":
+                case "readdb":
                     this.TryReadDataFromFile(data);
                     break;
                 case "help":
@@ -64,16 +92,16 @@
                 case "order":
                     this.TryOrderAndTake(input, data);
                     break;
-                case "decOrder":
+                case "decorder":
                     // TODO:
                     break;
                 case "download":
                     this.TryDownloadFile(input, data);
                     break;
-                case "downloadAsynch":
+                case "downloadasynch":
                     this.TryDownloadFileAsync(input, data);
                     break;
-                case "dropDb":
+                case "dropdb":
                     this.TryDropDb(input, data);
                     break;
                 default:

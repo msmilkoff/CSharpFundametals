@@ -13,21 +13,12 @@
 
             string personInfo = Console.ReadLine();
             string productInfo = Console.ReadLine();
+            
+            var personMatches = personInfo.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+            var productMatches = productInfo.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var regex = new Regex(@"(\w+)\s*=\s*(\d+|-\d+)");
-            var personMatches = regex.Matches(personInfo);
-            var productMatches = regex.Matches(productInfo);
-
-            try
-            {
-                AddPeople(personMatches, people);
-                AddProducts(productMatches, products);
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-                Environment.Exit(0);
-            }
+            AddPeople(personMatches, people);
+            AddProducts(productMatches, products);
 
             string input = Console.ReadLine();
             while (input != "END")
@@ -54,23 +45,39 @@
             }
         }
 
-        private static void AddProducts(MatchCollection productMatches, Dictionary<string, Product> products)
+        private static void AddProducts(string[] productMatches, Dictionary<string, Product> products)
         {
-            foreach (Match match in productMatches)
+            foreach (string match in productMatches)
             {
-                string productName = match.Groups[1].Value;
-                decimal price = decimal.Parse(match.Groups[2].Value);
-                products.Add(productName, new Product(productName, price));
+                var productCostPair = match.Split('=');
+                try
+                {
+                    var product = new Product(productCostPair[0], decimal.Parse(productCostPair[1]));
+                    products.Add(product.Name, product);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Environment.Exit(0);
+                }
             }
         }
 
-        private static void AddPeople(MatchCollection personMatches, Dictionary<string, Person> people)
+        private static void AddPeople(string[] personMatches, Dictionary<string, Person> people)
         {
-            foreach (Match match in personMatches)
+            foreach (string match in personMatches)
             {
-                string personName = match.Groups[1].Value;
-                decimal money = decimal.Parse(match.Groups[2].Value);
-                people.Add(personName, new Person(personName, money));
+                var personMoneyPair = match.Split('=');
+                try
+                {
+                    var person = new Person(personMoneyPair[0], decimal.Parse(personMoneyPair[1]));
+                    people.Add(person.Name, person);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Environment.Exit(0);
+                }
             }
         }
     }
@@ -125,7 +132,7 @@
     {
         private string name;
         private decimal money;
-        private ICollection<Product> products;
+        private List<Product> products;
 
         public Person(string name, decimal money)
         {
@@ -163,7 +170,7 @@
             }
         }
 
-        public ICollection<Product> Products => this.products;
+        public List<Product> Products => this.products;
 
         public void BuyProduct(Product product)
         {
