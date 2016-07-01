@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class Pizza
     {
@@ -41,6 +42,15 @@
             set { this.dough = value; }
         }
 
+        public double GetTotalPizzaCalories()
+        {
+            double toppingsCalories = this.Toppings.Sum(t => t.GetTotalCalories());
+            double doughCalories = this.Dough.GetTotalCalories();
+            double totalPizzaCalories = toppingsCalories + doughCalories;
+
+            return totalPizzaCalories;
+        }
+
         private ICollection<Topping> InitToppings(int toppingsCount)
         {
             if (toppingsCount > Constants.MaxAmountOfToppings)
@@ -49,6 +59,14 @@
             }
 
             return new List<Topping>();
+        }
+
+        public override string ToString()
+        {
+            double calories = this.GetTotalPizzaCalories();
+            string output = $"{this.Name} - {calories:F2} Calories.";
+
+            return output;
         }
     }
 }

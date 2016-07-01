@@ -4,19 +4,87 @@
 
     public class Startup
     {
-        public static void Main()  // TODO: Catch exceptions and add toppings to pizza.
+        public static void Main()
         {
-            string[] pizzaInfo = Console.ReadLine().Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
-            string[] doughInfo = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string firstLine = Console.ReadLine();
 
-            var pizza = CreatePizza(pizzaInfo);
-            var dough = CreateDough(doughInfo);
-
-            int toppingCount = int.Parse(pizzaInfo[2]);
-            for (int i = 0; i < toppingCount; i++)
+            if (firstLine.StartsWith("Pizza"))
             {
-                string[] toppingInfo = Console.ReadLine().Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+                try
+                {
+                    ExecutePizzaCommand(firstLine);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return;
+                }
             }
+            else
+            {
+                ExecuteIngredientsCommand(firstLine);
+            }
+        }
+
+        private static void ExecuteIngredientsCommand(string input)
+        {
+            while (input != "END")
+            {
+                string[] data = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                try
+                {
+                    switch (data[0])
+                    {
+                        case "Dough":
+                            var dough = CreateDough(data);
+                            Console.WriteLine($"{dough.GetTotalCalories():F2}");
+                            break;
+                        case "Topping":
+                            var topping = CreateTopping(data);
+                            Console.WriteLine($"{topping.GetTotalCalories():F2}");
+                            break;
+                    }
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return;
+                }
+
+                input = Console.ReadLine();
+            }
+        }
+
+        private static void ExecutePizzaCommand(string input)
+        {
+            var pizza = CreatePizza(input.Split());
+            while (input != "END")
+            {
+                string[] data = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                try
+                {
+                    switch (data[0])
+                    {
+                        case "Dough":
+                            var dough = CreateDough(data);
+                            pizza.Dough = dough;
+                            break;
+                        case "Topping":
+                            var topping = CreateTopping(data);
+                            pizza.Toppings.Add(topping);
+                            break;
+                    }
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return;
+                }
+
+                input = Console.ReadLine();
+            }
+
+            Console.WriteLine($"{pizza.Name} – {pizza.GetTotalPizzaCalories():F2} Calories.");
         }
 
         private static Pizza CreatePizza(string[] data)
