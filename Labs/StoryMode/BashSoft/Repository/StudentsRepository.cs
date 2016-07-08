@@ -8,6 +8,7 @@
     using IO;
     using Models;
     using Static_Data;
+    using Exceptions;
 
     public class StudentsRepository
     {
@@ -127,7 +128,7 @@
                 }
                 else
                 {
-                    OutputWriter.DisplayException(ExceptionMessages.InvalidCommand);
+                    throw new InvalidCommandException("Command is not valid");
                 }
             }
 

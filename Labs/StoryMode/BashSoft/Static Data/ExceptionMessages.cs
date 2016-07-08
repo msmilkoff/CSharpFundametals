@@ -16,8 +16,6 @@
         public const string UnauthorizedAccessExceptionMessage =
             "The folder/file you are trying to get access needs a higher level of rights than you currently have.";
 
-        public const string InvalidCommand = "The command {0} is not valid.";
-
         public const string UnableToParseNumber = "The sequence you've written is not a valid number";
 
         public const string InvalidStudentFilter = "The give filter is not one of the following: excellent/average/poor";

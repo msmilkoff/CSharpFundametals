@@ -2,11 +2,12 @@
 {
     using System;
     using System.Diagnostics;
-    using System.IO;
     using Judge;
     using Network;
     using Repository;
     using Static_Data;
+    using Commands;
+    using Exceptions;
 
     public class CommandInterpreter
     {
@@ -30,24 +31,13 @@
         public void InterpretCommand(string input)
         {
             string[] data = input.Split();
-            string command = data[0];
-            command = command.ToLower();
+            string commandName = data[0];
+            commandName = commandName.ToLower();
 
             try
             {
-                this.ParseCommand(input, command, data);
-            }
-            catch (DirectoryNotFoundException dnfex)
-            {
-                OutputWriter.DisplayException(dnfex.Message);
-            }
-            catch (ArgumentOutOfRangeException aoorex)
-            {
-                OutputWriter.DisplayException(aoorex.Message);
-            }
-            catch (ArgumentException aex)
-            {
-                OutputWriter.DisplayException(aex.Message);
+                var command = this.ParseCommand(input, commandName, data);
+                command.Execute();
             }
             catch (Exception ex)
             {
@@ -55,310 +45,44 @@
             }
         }
 
-        private void ParseCommand(string input, string command, string[] data)
+        private Command ParseCommand(string input, string command, string[] data)
         {
             switch (command)
             {
                 case "open":
-                    this.TryOpenFile(data);
-                    break;
+                    return new OpenFileCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "mkdir":
-                    this.TryCreateDirectory(data);
-                    break;
+                    return new MakeDirectoryCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "ls":
-                    this.TryTraverseFolder(data);
-                    break;
+                    return new TraverseFoldersCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "cmp":
-                    this.TryCompareFiles(data);
-                    break;
+                    return new TraverseFoldersCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "cdrel":
-                    this.TryChangePathRelatively(data);
-                    break;
+                    return new ChangeRelativePathCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "cdabs":
-                    this.TryChangePathAbsolute(data);
-                    break;
+                    return new ChangeAbsolutePathCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "readdb":
-                    this.TryReadDataFromFile(data);
-                    break;
+                    return new ReadDatabaseCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "help":
-                    this.TryGetHelp(data);
-                    break;
+                    return new GetHelpCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "show":
-                    this.TryShowWantedData(input, data);
-                    break;
+                    return new ShowCourseCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager); ;
                 case "filter":
-                    this.TryFilterAndTake(input, data);
-                    break;
+                    return new PrintFilteredStudentsCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "order":
-                    this.TryOrderAndTake(input, data);
-                    break;
+                    return new PrintOrderedStudentsCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "decorder":
                     // TODO:
                     break;
                 case "download":
-                    this.TryDownloadFile(input, data);
-                    break;
+                    return new DownloadFileCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "downloadasynch":
-                    this.TryDownloadFileAsync(input, data);
-                    break;
+                    return new DownloadAsynchCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
                 case "dropdb":
-                    this.TryDropDb(input, data);
-                    break;
-                default:
-                    this.DisplayInvalidCommanndMessage(command);
-                    break;
-            }
-        }
-
-        private void TryDropDb(string input, string[] data)
-        {
-            if (data.Length != 1)
-            {
-                this.DisplayInvalidCommanndMessage(input);
-                return;
+                    return new DropDatabaseCommand(input, data, this.judge, this.repository, this.downloadManager, this.ioManager);
             }
 
-            this.repository.UnloadData();
-            OutputWriter.WriteMessageOnNewLine("Database dropped!");
-        }
-
-        private void TryDownloadFileAsync(string input, string[] data)
-        {
-            if (data.Length == 2)
-            {
-                string url = data[1];
-                this.downloadManager.DownloadAsync(url);
-            }
-            else
-            {
-                this.DisplayInvalidCommanndMessage(input);
-            }
-        }
-
-        private void TryDownloadFile(string input, string[] data)
-        {
-            if (data.Length == 2)
-            {
-                string url = data[1];
-                this.downloadManager.Download(url);
-            }
-            else
-            {
-                this.DisplayInvalidCommanndMessage(input);
-            }
-        }
-
-        private void TryOrderAndTake(string input, string[] data)
-        {
-            if (data.Length == 5)
-            {
-                string courseName = data[1];
-                string comparison = data[2].ToLower();
-                string takeCommand = data[3].ToLower();
-                string takeQuantity = data[4].ToLower();
-
-                this.TryParseParametersForOrderAndTake(takeCommand, takeQuantity, courseName, comparison);
-            }
-        }
-
-        private void TryParseParametersForOrderAndTake(
-            string takeCommand,
-            string takeQuantity,
-            string courseName,
-            string comparison)
-        {
-            if (takeCommand == "take")
-            {
-                if (takeQuantity == "all")
-                {
-                    this.repository.OrderAndTake(courseName, comparison);
-                }
-                else
-                {
-                    int studentsToTake;
-                    bool hasParsed = int.TryParse(takeQuantity, out studentsToTake);
-                    if (hasParsed)
-                    {
-                        this.repository.OrderAndTake(courseName, comparison, studentsToTake);
-                    }
-                    else
-                    {
-                        OutputWriter.DisplayException(ExceptionMessages.InvalidTakeQuantityParameter);
-                    }
-                }
-            }
-            else
-            {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidTakeCommand);
-            }
-        }
-
-        private void TryFilterAndTake(string input, string[] data)
-        {
-            if (data.Length == 5)
-            {
-                string courseName = data[1];
-                string filter = data[2].ToLower();
-                string takeCommand = data[3].ToLower();
-                string takeQuantity = data[4].ToLower();
-
-                this.TryParseParametersForFilterAndTake(takeCommand, takeQuantity, courseName, filter);
-            }
-        }
-
-        private void TryParseParametersForFilterAndTake(
-            string takeCommand,
-            string takeQuantity,
-            string courseName,
-            string filter)
-        {
-            if (takeCommand == "take")
-            {
-                if (takeQuantity == "all")
-                {
-                    this.repository.FilterAndTake(courseName, filter);
-                }
-                else
-                {
-                    int studentToTake;
-                    bool hasParsed = int.TryParse(takeQuantity, out studentToTake);
-                    if (hasParsed)
-                    {
-                        this.repository.FilterAndTake(courseName, filter, studentToTake);
-                    }
-                    else
-                    {
-                        OutputWriter.DisplayException(ExceptionMessages.InvalidTakeQuantityParameter);
-                    }
-                }
-            }
-            else
-            {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidTakeCommand);
-            }
-        }
-
-        private void TryShowWantedData(string input, string[] data)
-        {
-            if (data.Length == 2)
-            {
-                string courseName = data[1];
-                this.repository.GetAllStudentsFromCourse(courseName);
-            }
-            else if (data.Length == 3)
-            {
-                string courseName = data[1];
-                string userName = data[2];
-                this.repository.GetStudentScoresFromCourse(courseName, userName);
-            }
-            else
-            {
-                this.DisplayInvalidCommanndMessage(input);
-            }
-        }
-
-        private void TryGetHelp(string[] data)
-        {
-            this.CheckParams(data, 1);
-
-            OutputWriter.WriteMessageOnNewLine($"{new string('_', 100)}");
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "make directory - mkdir: path "));
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "traverse directory - ls: depth "));
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "comparing files - cmp: path1 path2"));
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "change directory - changeDirREl:relative path"));
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "change directory - changeDir:absolute path"));
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "read students data base - readDb: path"));
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "filter {courseName} excelent/average/poor  take 2/5/all students - filterExcelent (the output is written on the console)"));
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "order increasing students - order {courseName} ascending/descending take 20/10/all (the output is written on the console)"));
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "download file - download: path of file (saved in current directory)"));
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "download file asinchronously - downloadAsynch: path of file (save in the current directory)"));
-            OutputWriter.WriteMessageOnNewLine(string.Format("|{0, -98}|", "get help – help"));
-            OutputWriter.WriteMessageOnNewLine($"{new string('_', 100)}");
-            OutputWriter.WriteEmptyLine();
-        }
-
-        private void TryReadDataFromFile(string[] data)
-        {
-            this.CheckParams(data, 2);
-
-            string fileName = data[1];
-            this.repository.LoadData(fileName);
-        }
-
-        private void TryChangePathAbsolute(string[] data)
-        {
-            this.CheckParams(data, 2);
-
-            string absolutePath = data[1];
-            this.ioManager.ChangeCurentDirectoryAbsolute(absolutePath);
-        }
-
-        private void TryChangePathRelatively(string[] data)
-        {
-            this.CheckParams(data, 2);
-
-            string relPath = data[1];
-            this.ioManager.ChangeCurrentDirectoryRelative(relPath);
-        }
-
-        private void TryCompareFiles(string[] data)
-        {
-            this.CheckParams(data, 3);
-
-            string firstPath = data[1];
-            string secondPath = data[2];
-
-            this.judge.CompareContent(firstPath, secondPath);
-        }
-
-        private void TryTraverseFolder(string[] data)
-        {
-            if (data.Length == 1)
-            {
-                this.ioManager.TraverseDirectory(0);
-            }
-            else if (data.Length == 2)
-            {
-                int depth;
-                bool hasParsed = int.TryParse(data[1], out depth);
-                if (hasParsed)
-                {
-                    this.ioManager.TraverseDirectory(depth);
-                }
-                else
-                {
-                    OutputWriter.DisplayException(ExceptionMessages.UnableToParseNumber);
-                }
-            }
-        }
-
-        private void TryCreateDirectory(string[] data)
-        {
-            this.CheckParams(data, 2);
-
-            string folderName = data[1];
-            this.ioManager.CreateDirectoryInCurretFolder(folderName);
-        }
-
-        private void TryOpenFile(string[] data)
-        {
-            this.CheckParams(data, 2);
-
-            string fileName = data[1];
-            Process.Start(SessionData.currentPath + "\\" + fileName);
-        }
-
-        private void DisplayInvalidCommanndMessage(string command)
-        {
-            OutputWriter.DisplayException(string.Format(ExceptionMessages.InvalidCommand, command));
-        }
-
-        private void CheckParams(string[] data, int length)
-        {
-            if (data.Length != length)
-            {
-                OutputWriter.DisplayException($"Invalid number of parameters for the {data[0]} command.");
-            }
+            throw new InvalidCommandException();
         }
     }
 }
