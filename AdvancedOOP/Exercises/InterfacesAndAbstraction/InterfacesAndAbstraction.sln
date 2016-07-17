@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.BirthdayCelebrations", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.FoodShortage", "07.FoodShortage\07.FoodShortage.csproj", "{77B24457-3492-4396-8D9F-9147B0563D2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.MilitaryElite", "08.MilitaryElite\08.MilitaryElite.csproj", "{B9ADDA83-BC2F-42D8-8356-B7BDEB07428A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{77B24457-3492-4396-8D9F-9147B0563D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77B24457-3492-4396-8D9F-9147B0563D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77B24457-3492-4396-8D9F-9147B0563D2C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9ADDA83-BC2F-42D8-8356-B7BDEB07428A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9ADDA83-BC2F-42D8-8356-B7BDEB07428A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9ADDA83-BC2F-42D8-8356-B7BDEB07428A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9ADDA83-BC2F-42D8-8356-B7BDEB07428A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
