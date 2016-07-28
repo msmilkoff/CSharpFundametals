@@ -1,8 +1,10 @@
 ﻿namespace _01.Database
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
 
-    public class Database
+    public class Database : IEnumerable<int>
     {
         private const int Capacity = 16;
 
@@ -15,6 +17,10 @@
             this.items = new int[Capacity];
         }
 
+        public int Length => items.Length;
+
+        public int Last => this.items[currentIndex - 1];
+
         public Database(params int[] elements)
         {
             if (elements.Length > 16)
@@ -23,6 +29,12 @@
             }
 
             this.items = new int[Capacity];
+            for (int i = 0; i < elements.Length; i++)
+            {
+                this.items[i] = elements[i];
+            }
+
+            this.currentIndex = elements.Length;
             
         }
 
@@ -39,13 +51,13 @@
 
         public void Remove()
         {
-            if (this.items.Length == 0)
+            if (this.currentIndex == 0)
             {
                 throw new InvalidOperationException("Database empty.");
             }
 
             int removeIndex = this.currentIndex - 1;
-            this.items[currentIndex] = 0;
+            this.items[removeIndex] = 0;
             this.currentIndex--;
         }
 
@@ -66,6 +78,19 @@
             {
                 this.items[i] = inputElements[i];
             }
+        }
+
+        public IEnumerator<int> GetEnumerator()
+        {
+            foreach (var item in this.items)
+            {
+                yield return item;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }
