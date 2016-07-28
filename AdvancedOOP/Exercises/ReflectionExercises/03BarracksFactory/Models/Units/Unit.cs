@@ -52,6 +52,7 @@
             }
         }
 
+        // TODO extract to setter?
         private void SetInitialHealth(int health)
         {
             if (health <= 0)
