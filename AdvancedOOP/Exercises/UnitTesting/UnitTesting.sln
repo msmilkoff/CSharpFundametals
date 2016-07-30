@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.CustomLinkedList", "06.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.CustomLinkedList.Tests", "06.CustomLinkedList.Tests\06.CustomLinkedList.Tests.csproj", "{17F3924D-9B65-4697-9965-4FA017A5AE77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.TirePressureMonitoringSystem", "07.TirePressureMonitoringSystem\07.TirePressureMonitoringSystem.csproj", "{024DD4FF-F98F-4BF1-BC87-B2F29A5BB674}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.TirePressureMonitoringSystem.Tests", "07.TirePressureMonitoringSystem.Tests\07.TirePressureMonitoringSystem.Tests.csproj", "{57B1A117-D314-4255-BA20-F6923C65EF51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,14 @@ Global
 		{17F3924D-9B65-4697-9965-4FA017A5AE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17F3924D-9B65-4697-9965-4FA017A5AE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17F3924D-9B65-4697-9965-4FA017A5AE77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{024DD4FF-F98F-4BF1-BC87-B2F29A5BB674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{024DD4FF-F98F-4BF1-BC87-B2F29A5BB674}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{024DD4FF-F98F-4BF1-BC87-B2F29A5BB674}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{024DD4FF-F98F-4BF1-BC87-B2F29A5BB674}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57B1A117-D314-4255-BA20-F6923C65EF51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57B1A117-D314-4255-BA20-F6923C65EF51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57B1A117-D314-4255-BA20-F6923C65EF51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57B1A117-D314-4255-BA20-F6923C65EF51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
