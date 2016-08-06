@@ -3,15 +3,16 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+    using Contracts;
     using Static_data;
 
-    public class InputReader
+    public class InputReader : IReader
     {
         private const string EndCommand = "quit";
 
-        private CommandInterpreter interpreter;
+        private IInterpreter interpreter;
 
-        public InputReader(CommandInterpreter interpreter)
+        public InputReader(IInterpreter interpreter)
         {
             this.interpreter = interpreter;
         }
@@ -24,7 +25,7 @@
 
             while (input != EndCommand)
             {
-                this.interpreter.InterpredCommand(input);
+                this.interpreter.InterpretCommand(input);
                 OutputWriter.WriteMessage($"{SessionData.currentPath}> ");
                 input = Console.ReadLine();
                 input = input.Trim();

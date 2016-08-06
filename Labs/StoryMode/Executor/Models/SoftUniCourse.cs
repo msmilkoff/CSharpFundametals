@@ -1,20 +1,21 @@
 ﻿namespace Executor.Models
 {
     using System.Collections.Generic;
+    using Contracts;
     using Exceptions;
 
-    public class Course 
+    public class SoftUniCourse : ICourse
     {
         public const int NumberOfTasksOnExam = 5;
         public const int MaxScoreOnExamTask = 100;
 
         private string name;
-        private Dictionary<string, Student> studentsByName;
+        private Dictionary<string, IStudent> studentsByName;
 
-        public Course(string name)
+        public SoftUniCourse(string name)
         {
             this.Name = name;
-            this.studentsByName = new Dictionary<string, Student>();
+            this.studentsByName = new Dictionary<string, IStudent>();
         }
 
         public string Name
@@ -35,7 +36,7 @@
             }
         }
 
-        public IReadOnlyDictionary<string, Student> StudentsByName
+        public IReadOnlyDictionary<string, IStudent> StudentsByName
         {
             get
             {
@@ -43,7 +44,7 @@
             }
         }
 
-        public void EnrollStudent(Student student)
+        public void EnrollStudent(IStudent student)
         {
             if (this.studentsByName.ContainsKey(student.UserName))
             {
@@ -51,6 +52,16 @@
             }
 
             this.studentsByName.Add(student.UserName, student);
+        }
+
+        public int CompareTo(ICourse other)
+        {
+            return this.Name.CompareTo(other.Name);
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
     }
 }

@@ -3,13 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Contracts;
     using IO;
     using Static_data;
 
-    public class RepositorySorter
-    {                                                
-        public void OrderAndTake(Dictionary<string, double> studentsMarks,
-          string comparison, int studentsToTake)
+    public class RepositorySorter : IDataSorter
+    {
+        public void PrintSortedStudents(
+            Dictionary<string, double> studentsMarks,
+            string comparison,
+            int studentsToTake)
         {
             comparison = comparison.ToLower();
             if (comparison == "ascending")
@@ -25,11 +28,11 @@
                                         .ToDictionary(pair => pair.Key, pair => pair.Value));
             }
             else
-            {                            
+            {
                 throw new ArgumentException(ExceptionMessages.InvalidComparisonQuery);
             }
         }
-                                  
+
         private void PrintStudents(Dictionary<string, double> studentsSorted)
         {
             foreach (KeyValuePair<string, double> keyValuePair in studentsSorted)

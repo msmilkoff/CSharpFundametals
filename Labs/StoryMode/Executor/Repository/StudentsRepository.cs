@@ -5,22 +5,24 @@
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Contracts;
+    using DataStructures;
     using Exceptions;
     using IO;
     using Models;
     using Static_data;
 
-    public class StudentsRepository
+    public class StudentsRepository : IDatabase
     {
-        private Dictionary<string, Course> courses;
-        private Dictionary<string, Student> students;
+        private Dictionary<string, SoftUniCourse> courses;
+        private Dictionary<string, SoftUniStudent> students;
 
         private bool isDataInitialized;
 
-        private RepositioryFilter filter;
-        private RepositorySorter sorter;
+        private IDataFilter filter;
+        private IDataSorter sorter;
 
-        public IReadOnlyDictionary<string, Course> Courses
+        public IReadOnlyDictionary<string, SoftUniCourse> Courses
         {
             get
             {
@@ -28,7 +30,7 @@
             }
         }
 
-        public IReadOnlyDictionary<string, Student> Students
+        public IReadOnlyDictionary<string, SoftUniStudent> Students
         {
             get
             {
@@ -44,7 +46,7 @@
             }
         }
 
-        public StudentsRepository(RepositorySorter sorter, RepositioryFilter filter)
+        public StudentsRepository(IDataSorter sorter, IDataFilter filter)
         {
             this.filter = filter;
             this.sorter = sorter;
@@ -57,8 +59,8 @@
                 throw new ArgumentException(ExceptionMessages.DataAlreadyInitializedException);
             }
 
-            this.students = new Dictionary<string, Student>();
-            this.courses = new Dictionary<string, Course>();
+            this.students = new Dictionary<string, SoftUniStudent>();
+            this.courses = new Dictionary<string, SoftUniCourse>();
             this.ReadData(fileName);
         }
 
@@ -95,7 +97,7 @@
                         string scoresStr = currentMatch.Groups[3].Value;
                         try
                         {
-                            int[] scores = scoresStr.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                            int[] scores = scoresStr.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                                 .Select(int.Parse)
                                 .ToArray();
 
@@ -105,7 +107,7 @@
                                 continue;
                             }
 
-                            if (scores.Length > Course.NumberOfTasksOnExam)
+                            if (scores.Length > SoftUniCourse.NumberOfTasksOnExam)
                             {
                                 OutputWriter.DisplayException(ExceptionMessages.InvalidNumberOfScores);
                                 continue;
@@ -113,25 +115,26 @@
 
                             if (!this.Students.ContainsKey(username))
                             {
-                                this.students.Add(username, new Student(username));
+                                this.students.Add(username, new SoftUniStudent(username));
                             }
 
                             if (!this.Courses.ContainsKey(courseName))
                             {
-                                this.courses.Add(courseName, new Course(courseName));
+                                this.courses.Add(courseName, new SoftUniCourse(courseName));
                             }
 
-                            Course course = this.Courses[courseName];
-                            Student student = this.Students[username];
+                            SoftUniCourse course = this.Courses[courseName];
+                            SoftUniStudent student = this.Students[username];
 
                             student.EnrollInCourse(course);
                             student.SetMarkOnCourse(courseName, scores);
 
                             course.EnrollStudent(student);
-                        }                  
+                        }
                         catch (Exception ex)
                         {
-                            OutputWriter.DisplayException(ex.Message + $"at line : {line}");}
+                            OutputWriter.DisplayException(ex.Message + $"at line : {line}");
+                        }
                     }
                 }
 
@@ -177,7 +180,7 @@
                 Dictionary<string, double> marks = this.Courses[courseName].StudentsByName
                                                      .ToDictionary(x => x.Key, x => x.Value.MarksByCourseName[courseName]);
 
-                this.sorter.OrderAndTake(marks, comparison, studentsToTake.Value);
+                this.sorter.PrintSortedStudents(marks, comparison, studentsToTake.Value);
             }
         }
 
@@ -193,8 +196,24 @@
                 Dictionary<string, double> marks = this.Courses[courseName].StudentsByName
                                                     .ToDictionary(x => x.Key, x => x.Value.MarksByCourseName[courseName]);
 
-                this.filter.FilterAndTake(marks, givenFilter, studentsToTake.Value);
+                this.filter.PrintFilteredStudents(marks, givenFilter, studentsToTake.Value);
             }
+        }
+
+        public ISimpleOrderedBag<ICourse> GetAllCoursesSorted(IComparer<ICourse> comparer)
+        {
+            var courses = new SimpleSortedList<ICourse>((x, y) => comparer.Compare(x, y));
+            courses.AddRange(this.Courses.Values as ICollection<ICourse>);
+
+            return courses;
+        }
+
+        public ISimpleOrderedBag<IStudent> GetAllStudentsSorted(IComparer<IStudent> comparer)
+        {
+            var students = new SimpleSortedList<IStudent>((x, y) => comparer.Compare(x, y));
+            students.AddRange(this.Students.Values as ICollection<IStudent>);
+
+            return students;
         }
 
         private bool IsQueryForCoursePossible(string courseName)

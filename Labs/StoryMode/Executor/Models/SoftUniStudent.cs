@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Contracts;
     using Exceptions;
     using Static_data;
 
-    public class Student
+    public class SoftUniStudent : IStudent
     {
         private string userName;
-        private Dictionary<string, Course> enrolledCourses;
+        private Dictionary<string, ICourse> enrolledCourses;
         private Dictionary<string, double> marksByCourseName;
 
         public string UserName
@@ -30,7 +31,7 @@
             }
         }
 
-        public IReadOnlyDictionary<string, Course> EnrolledCourses
+        public IReadOnlyDictionary<string, ICourse> EnrolledCourses
         {
             get
             {
@@ -46,14 +47,14 @@
             }
         }
 
-        public Student(string userName)
+        public SoftUniStudent(string userName)
         {
             this.UserName = userName;
-            this.enrolledCourses = new Dictionary<string, Course>();
+            this.enrolledCourses = new Dictionary<string, ICourse>();
             this.marksByCourseName = new Dictionary<string, double>();
         }
 
-        public void EnrollInCourse(Course course)
+        public void EnrollInCourse(ICourse course)
         {
             if (this.EnrolledCourses.ContainsKey(course.Name))
             {
@@ -70,7 +71,7 @@
                 throw new KeyNotFoundException(ExceptionMessages.NotEnrolledInCourse);
             }
 
-            if (scores.Length > Course.NumberOfTasksOnExam)
+            if (scores.Length > SoftUniCourse.NumberOfTasksOnExam)
             {
                 throw new ArgumentException(ExceptionMessages.InvalidNumberOfScores);
             }
@@ -85,10 +86,19 @@
 
         private double CalculateMark(int[] scores)
         {
-            double percentageOfSolvedExam = scores.Sum() / (double)(Course.NumberOfTasksOnExam * Course.MaxScoreOnExamTask);
+            double percentageOfSolvedExam = scores.Sum() / (double)(SoftUniCourse.NumberOfTasksOnExam * SoftUniCourse.MaxScoreOnExamTask);
             double mark = percentageOfSolvedExam * 4 + 2;
             return mark;
         }
 
+        public int CompareTo(IStudent other)
+        {
+            return this.UserName.CompareTo(other.UserName);
+        }
+
+        public override string ToString()
+        {
+            return this.UserName;
+        }
     }
 }

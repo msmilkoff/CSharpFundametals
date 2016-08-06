@@ -2,11 +2,12 @@
 {
     using System.Net;
     using System.Threading.Tasks;
+    using Contracts;
     using Exceptions;
     using IO;
     using Static_data;
 
-    public class DownloadManager
+    public class DownloadManager : IDownloadManager
     {
         private WebClient webClient;
 
@@ -35,9 +36,9 @@
 
         }
 
-        public void DownloadAsync(string fileURL)
+        public void DownloadAsync(string fileUrl)
         {
-            Task currentTask = Task.Run(() => this.Download(fileURL));
+            Task currentTask = Task.Run(() => this.Download(fileUrl));
             SessionData.taskPool.Add(currentTask);
         }
 

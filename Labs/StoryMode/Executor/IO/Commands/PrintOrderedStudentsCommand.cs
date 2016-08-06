@@ -1,14 +1,12 @@
 ﻿namespace Executor.IO.Commands
 {
-    using Judge;
-    using Network;
-    using Repository;
+    using Contracts;
     using Static_data;
 
     public class PrintOrderedStudentsCommand  : Command
     {
-        public PrintOrderedStudentsCommand(string input, string[] data, Tester tester,
-            StudentsRepository repository, DownloadManager downloadManager, IOManager ioManager)
+        public PrintOrderedStudentsCommand(string input, string[] data, IContentComparer tester,
+            IDatabase repository, IDownloadManager downloadManager, IDirectoryManager ioManager)
             : base(input, data, tester, repository, downloadManager, ioManager)
         {
         }

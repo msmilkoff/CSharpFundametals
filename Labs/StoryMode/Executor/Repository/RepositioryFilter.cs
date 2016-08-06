@@ -2,12 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using Contracts;
     using IO;
     using Static_data;
 
-    public class RepositioryFilter
+    public class RepositioryFilter : IDataFilter
     {
-        public void FilterAndTake(Dictionary<string, double> studentsWithMarks, string wantedFilter, int studentsToTake)
+        public void PrintFilteredStudents(Dictionary<string, double> studentsWithMarks, string wantedFilter, int studentsToTake)
         {
             if (wantedFilter == "excellent")
             {

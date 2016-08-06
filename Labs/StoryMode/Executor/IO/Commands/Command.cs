@@ -1,23 +1,20 @@
 ﻿namespace Executor.IO.Commands
 {
-    using System;
+    using Contracts;
     using Exceptions;
-    using Judge;
-    using Network;
-    using Repository;
 
-    public abstract class Command
+    public abstract class Command : IExecutable
     {
         private string input;
         private string[] data;
 
-        private Tester tester;
-        private StudentsRepository repository;
-        private DownloadManager downloadManager;
-        private IOManager inputOutputManager;
+        private IContentComparer tester;
+        private IDatabase repository;
+        private IDownloadManager downloadManager;
+        private IDirectoryManager inputOutputManager;
 
-        public Command(string input, string[] data, Tester tester, StudentsRepository repository,
-            DownloadManager downloadManager, IOManager ioManager)
+        public Command(string input, string[] data, IContentComparer tester, IDatabase repository,
+            IDownloadManager downloadManager, IDirectoryManager ioManager)
         {
             this.Input = input;
             this.Data = data;
@@ -33,7 +30,7 @@
 
             private set
             {
-                if (String.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new InvalidStringException(value);
                 }
@@ -57,22 +54,22 @@
             }
         }
 
-        protected StudentsRepository Repository
+        protected IDatabase Repository
         {
             get { return this.repository; }
         }
 
-        protected Tester Tester
+        protected IContentComparer Tester
         {
             get { return this.tester; }
         }
 
-        protected IOManager InputOutputManager
+        protected IDirectoryManager InputOutputManager
         {
             get { return this.inputOutputManager; }
         }
 
-        protected DownloadManager DownloadManager
+        protected IDownloadManager DownloadManager
         {
             get { return this.downloadManager; }
         }

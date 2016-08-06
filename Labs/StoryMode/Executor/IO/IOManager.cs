@@ -3,10 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using Contracts;
     using Exceptions;
     using Static_data;
 
-    public class IOManager
+    public class IOManager : IDirectoryManager
     {
         public void TraverseDirectory(int depth)
         {

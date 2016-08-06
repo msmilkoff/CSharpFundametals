@@ -1,14 +1,12 @@
 ﻿namespace Executor.IO.Commands
 {
+    using Contracts;
     using Exceptions;
-    using Judge;
-    using Network;
-    using Repository;
 
     public class CompareFilesCommand : Command
     {
-        public CompareFilesCommand(string input, string[] data, Tester tester,
-            StudentsRepository repository, DownloadManager downloadManager, IOManager ioManager)
+        public CompareFilesCommand(string input, string[] data, IContentComparer tester,
+            IDatabase repository, IDownloadManager downloadManager, IDirectoryManager ioManager)
             : base(input, data, tester, repository, downloadManager, ioManager)
         {
         }
